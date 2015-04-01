@@ -104,180 +104,119 @@ public class MainForm extends JFrame implements ActionListener {
 		setJMenuBar(menuBar);
 		
 		// Створюємо нижню панель і задаємо їй layout
-				JPanel bot = new JPanel();
-				bot.setLayout(new BorderLayout());
+		JPanel bot = new JPanel();
+		bot.setLayout(new BorderLayout());
 
-				// Створюємо ліву панель для виведення списку груп
-				JPanel left = new JPanel();
-				// Задаємо layout і задаємо "бордюр" навколо панелі
-				left.setLayout(new BorderLayout());
-				left.setBorder(new BevelBorder(BevelBorder.RAISED));
+		// Створюємо ліву панель для виведення списку груп
+		JPanel left = new JPanel();
+		// Задаємо layout і задаємо "бордюр" навколо панелі
+		left.setLayout(new BorderLayout());
+		left.setBorder(new BevelBorder(BevelBorder.RAISED));
 
-				// Отримуємо список виробників
-				//List<Producer> producers = Producer.all();
-				// Створюємо напис
-				left.add(new JLabel("Producers:"), BorderLayout.NORTH);
-				// Створюємо візуальний список і вставляємо його в скролінговану
-				// панель, яку у свою чергу кладемо на панель left
-				loadProducersList();
-				
-				left.add(new JScrollPane(prodList), BorderLayout.CENTER);
-				left.add(bShowAllProd, BorderLayout.SOUTH);
-				
-
-				// Створюємо праву панель для виведення списку студентів
-				JPanel right = new JPanel();
-				// Задаємо layout і задаємо "бордюр" навколо панелі
-				right.setLayout(new BorderLayout());
-				right.setBorder(new BevelBorder(BevelBorder.RAISED));
-//				// Отримуємо список студентів
-//				List<Software> software = Software.all();
-//				// // Створюємо напис
-//				right.add(new JLabel("Software:"), BorderLayout.NORTH);
-//				// Створюємо візуальний список і вставляємо його в скролінговану
-//				// панель, яку у свою чергу кладемо на панель right
-//				//softList = new JList((ListModel) software);
-//				
-//				for (Software s : Software.all()) {
-//					listModel2.addElement(s.getName()+" "+s.getReleaseDate()+" "+s.getVersion());
-//				}
-//				
-//				softList = new JList(listModel2);
-//				
-//				right.add(new JScrollPane(softList), BorderLayout.CENTER);
-//				// Вставляємо панелі зі списками груп і студентів в нижню панель
-				
-				//таблиця компаній
-//				producersTableModel = getTableModel();
-//				producersTable = new JTable(producersTableModel);
-//				producersTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//				producersTable.setPreferredScrollableViewportSize(new Dimension(880, 180));
-//				producersTable.getColumnModel().getColumn(0).setMinWidth(25);
-//				producersTable.getColumnModel().getColumn(1).setMinWidth(100);
-//				producersTable.getColumnModel().getColumn(2).setMinWidth(150);
-//				producersTable.getColumnModel().getColumn(3).setMinWidth(100);
-//				producersTable.getColumnModel().getColumn(4).setMinWidth(150);
-//				producersTable.getColumnModel().getColumn(5).setMinWidth(150);
-//				producersTable.getColumnModel().getColumn(6).setMinWidth(120);
-//				producersTable.getColumnModel().getColumn(7).setMinWidth(100);
-//				producersTable.setGridColor(Color.ORANGE);
-//				producersTable.setRowHeight(20);
-//				Font FontGrid = new Font(Font.MONOSPACED, Font.PLAIN, 14);
-//				producersTable.setFont(FontGrid);
-//
-//				JScrollPane scrollPane = new JScrollPane(producersTable);
-//				scrollPane.setOpaque(false);
-//				scrollPane.getViewport().setOpaque(false);
-				
-				
-				
-				softwareTableModel = new SoftwareTableModel(Software.all());
-				softwareTable = new JTable(softwareTableModel);
-				softwareTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				softwareTable.setPreferredScrollableViewportSize(new Dimension(880, 180));
-				softwareTable.getColumnModel().getColumn(0).setMinWidth(25);
-				softwareTable.getColumnModel().getColumn(1).setMinWidth(100);
-				softwareTable.getColumnModel().getColumn(2).setMinWidth(50);
-				softwareTable.getColumnModel().getColumn(3).setMinWidth(100);
-				softwareTable.getColumnModel().getColumn(4).setMinWidth(60);
-				softwareTable.getColumnModel().getColumn(5).setMinWidth(50);
-				softwareTable.getColumnModel().getColumn(6).setMinWidth(50);
-				softwareTable.getColumnModel().getColumn(7).setMinWidth(100);
-				softwareTable.setGridColor(Color.ORANGE);
-				softwareTable.setRowHeight(20);
-				softwareTable.setRowHeight(40);
-				Font FontGrid = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
-				softwareTable.setFont(FontGrid);
-
-				JScrollPane scrollPane = new JScrollPane(softwareTable);
-				scrollPane.setOpaque(false);
-				scrollPane.getViewport().setOpaque(false);
-				
-				JPanel bottom = new JPanel();
-				JPanel nav = new JPanel();
-				
-				bottom.setLayout(new BorderLayout());
-				nav.setLayout(new FlowLayout());
-				
-				nav.add(bDeleteSoft);
-				nav.add(bUpdateSoft);
-				nav.add(bReport);
-				nav.add(bPrint);
-				nav.add(bCreateSoft);
-				
-				bottom.add(nav, BorderLayout.CENTER);
-				bottom.add(bShowAllLicence, BorderLayout.EAST);
-				
-				
-				right.add(scrollPane, BorderLayout.CENTER);
-				right.add(bottom, BorderLayout.SOUTH);
-				
-				
-				bot.add(left, BorderLayout.WEST);
-				bot.add(right, BorderLayout.CENTER);
-
-				// Вставляємо верхню і нижню панелі у форму
-				//getContentPane().add(scrollPane2, BorderLayout.NORTH);
-				getContentPane().add(bot, BorderLayout.CENTER);
-
-				// Задаємо межі форми
-				setBounds(100, 100, 1000, 400);
-				
-				bShowAllProd.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						producersForm.setVisible(true);
-						
-						//JOptionPane.showMessageDialog( null, "Show all producers", "Producers", JOptionPane.DEFAULT_OPTION );
-					}
-				});
-				bShowAllLicence.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						licencesForm.setVisible(true);
-					}
-				});
-				bCreateSoft.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						createSoftware();
-//						JOptionPane.showMessageDialog( null, "Create new software", "New", JOptionPane.DEFAULT_OPTION );
-					}
-				});
-				bUpdateSoft.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						updateSoftware();
-//						JOptionPane.showMessageDialog( null, "Update software", "Update", JOptionPane.DEFAULT_OPTION );
-					}
-				});
-				bDeleteSoft.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						removeSoftware();
-//						JOptionPane.showMessageDialog( null, "Delete software", "Delete", JOptionPane.DEFAULT_OPTION );
-					}
-				});
-				bPrint.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						printSoftware();
-					}
-				});
-				bReport.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						try {
-							reportSoftware();
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
-					}
-				});
-	}
-	
-	public static void main(String[] args) {
+		// Отримуємо список виробників
+		//List<Producer> producers = Producer.all();
+		// Створюємо напис
+		left.add(new JLabel("Producers:"), BorderLayout.NORTH);
+		// Створюємо візуальний список і вставляємо його в скролінговану
+		// панель, яку у свою чергу кладемо на панель left
+		loadProducersList();
 		
-		MainForm mForm = new MainForm(); 
+		left.add(new JScrollPane(prodList), BorderLayout.CENTER);
+		left.add(bShowAllProd, BorderLayout.SOUTH);
+				
+		// Створюємо праву панель для виведення списку студентів
+		JPanel right = new JPanel();
+		// Задаємо layout і задаємо "бордюр" навколо панелі
+		right.setLayout(new BorderLayout());
+		right.setBorder(new BevelBorder(BevelBorder.RAISED));				
+				
+		softwareTableModel = new SoftwareTableModel(Software.all());
+		softwareTable = new JTable(softwareTableModel);
+		softwareTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		softwareTable.setPreferredScrollableViewportSize(new Dimension(880, 180));
+		softwareTable.getColumnModel().getColumn(0).setMinWidth(25);
+		softwareTable.getColumnModel().getColumn(1).setMinWidth(100);
+		softwareTable.getColumnModel().getColumn(2).setMinWidth(50);
+		softwareTable.getColumnModel().getColumn(3).setMinWidth(100);
+		softwareTable.getColumnModel().getColumn(4).setMinWidth(60);
+		softwareTable.getColumnModel().getColumn(5).setMinWidth(50);
+		softwareTable.getColumnModel().getColumn(6).setMinWidth(50);
+		softwareTable.getColumnModel().getColumn(7).setMinWidth(100);
+		softwareTable.setGridColor(Color.ORANGE);
+		softwareTable.setRowHeight(20);
+		softwareTable.setRowHeight(40);
+		Font FontGrid = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
+		softwareTable.setFont(FontGrid);
+		JScrollPane scrollPane = new JScrollPane(softwareTable);
+		scrollPane.setOpaque(false);
+		scrollPane.getViewport().setOpaque(false);
+				
+		JPanel bottom = new JPanel();
+		JPanel nav = new JPanel();
+			
+		bottom.setLayout(new BorderLayout());
+		nav.setLayout(new FlowLayout());
+				
+		nav.add(bDeleteSoft);
+		nav.add(bUpdateSoft);
+		nav.add(bReport);
+		nav.add(bPrint);
+		nav.add(bCreateSoft);
+		
+		bottom.add(nav, BorderLayout.CENTER);
+		bottom.add(bShowAllLicence, BorderLayout.EAST);
+				
+		right.add(scrollPane, BorderLayout.CENTER);
+		right.add(bottom, BorderLayout.SOUTH);
+				
+		bot.add(left, BorderLayout.WEST);
+		bot.add(right, BorderLayout.CENTER);
 
-		mForm.setVisible(true);
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
-		mForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		// Вставляємо верхню і нижню панелі у форму
+		//getContentPane().add(scrollPane2, BorderLayout.NORTH);
+		getContentPane().add(bot, BorderLayout.CENTER);
+		// Задаємо межі форми
+		setBounds(100, 100, 1000, 400);
+				
+		bShowAllProd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				producersForm.setVisible(true);
+			}
+		});
+		bShowAllLicence.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				licencesForm.setVisible(true);
+			}
+		});
+		bCreateSoft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				createSoftware();
+			}
+		});
+		bUpdateSoft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				updateSoftware();
+			}
+		});
+		bDeleteSoft.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				removeSoftware();
+			}
+		});
+		bPrint.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				printSoftware();
+			}
+		});
+		bReport.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					reportSoftware();
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 	}
 	
 	private void printSoftware() {
@@ -392,5 +331,15 @@ public class MainForm extends JFrame implements ActionListener {
 //		return new ProducerTableModel(new ArrayList<Producer>(0));
 //	}
 	
+	public static void main(String[] args) {
+		
+		MainForm mForm = new MainForm(); 
+
+		mForm.setVisible(true);
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		JDialog.setDefaultLookAndFeelDecorated(true);
+		mForm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	}
 
 }

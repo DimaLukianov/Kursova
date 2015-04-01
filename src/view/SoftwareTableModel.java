@@ -43,7 +43,7 @@ public class SoftwareTableModel extends AbstractTableModel {
 		Software s = software.get(rowIndex);
 		switch (columnIndex) {
 		case 0:
-			return Integer.toString(s.getProducerId());
+			return Integer.toString(s.getSoftwareId());
 		case 1:
 			return s.getName();
 		case 2:

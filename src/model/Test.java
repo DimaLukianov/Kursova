@@ -41,16 +41,18 @@ public class Test {
 //			System.out.println(p.getName());
 //		}
 		
-		Producer p = new Producer();
-		p.setName("Net");
-		p.setCountry("Ukraine");
-		p.setCity("IF");
-		p.setStreet("Vovch 21");
-		p.setEmail("dsf@dd.ua");
-		p.setWebSite("job.ua");
-		p.setTelephone("0995465345");
-		System.out.println(p.save());
-		//System.out.println(p.getProducerId());
+//		Producer p = new Producer();
+//		p.setName("Net");
+//		p.setCountry("Ukraine");
+//		p.setCity("IF");
+//		p.setStreet("Vovch 21");
+//		p.setEmail("dsf@dd.ua");
+//		p.setWebSite("job.ua");
+//		p.setTelephone("0995465345");
+//		System.out.println(p.save());
+		String text = "3334| SoftServe";
+		String[] arr = text.split("\\|");
+		System.out.println(Integer.parseInt(arr[0]));
 		
 		long timeSpent = System.currentTimeMillis()-startTime;
 		
