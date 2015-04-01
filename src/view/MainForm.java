@@ -233,32 +233,34 @@ public class MainForm extends JFrame implements ActionListener {
 	
 	private void reportSoftware() throws IOException {
 		String fileName = JOptionPane.showInputDialog ("Enter file name...");
-		if(!fileName.equals("")){
-			Date d = new Date();
-	        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
-			BufferedWriter bfw = new BufferedWriter(new FileWriter(fileName+".txt"));
-			for(int i = 0 ; i < softwareTable.getColumnCount() ; i++)
-			{
-				bfw.write(String.format("%30s",softwareTable.getColumnName(i)));
-				bfw.write("|");
-			}
-			bfw.newLine();
-			for (int i = 0 ; i < softwareTable.getRowCount(); i++)
-			{
-				bfw.newLine();
-			    for(int j = 0 ; j < softwareTable.getColumnCount();j++)
+		if(fileName != null){
+			if(!fileName.equals("")){
+				Date d = new Date();
+		        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+				BufferedWriter bfw = new BufferedWriter(new FileWriter(fileName+".txt"));
+				for(int i = 0 ; i < softwareTable.getColumnCount() ; i++)
 				{
-			    	bfw.write((String)(String.format("%30s",softwareTable.getValueAt(i,j))));
-			    	bfw.write("|");
+					bfw.write(String.format("%30s",softwareTable.getColumnName(i)));
+					bfw.write("|");
 				}
-			    System.out.println("\r\n");
-			}
-			bfw.newLine();
-			bfw.newLine();
-			bfw.write("Date: "+format.format(d));
-			JOptionPane.showMessageDialog(MainForm.this, "The report was successfully generated!", "Success", JOptionPane.DEFAULT_OPTION );
-			bfw.close();
-		}else JOptionPane.showMessageDialog(MainForm.this, "File name can't be blank!", "Error", JOptionPane.DEFAULT_OPTION );
+				bfw.newLine();
+				for (int i = 0 ; i < softwareTable.getRowCount(); i++)
+				{
+					bfw.newLine();
+				    for(int j = 0 ; j < softwareTable.getColumnCount();j++)
+					{
+				    	bfw.write((String)(String.format("%30s",softwareTable.getValueAt(i,j))));
+				    	bfw.write("|");
+					}
+				    System.out.println("\r\n");
+				}
+				bfw.newLine();
+				bfw.newLine();
+				bfw.write("Date: "+format.format(d));
+				JOptionPane.showMessageDialog(MainForm.this, "The report was successfully generated!", "Success", JOptionPane.DEFAULT_OPTION );
+				bfw.close();
+			}else JOptionPane.showMessageDialog(MainForm.this, "File name can't be blank!", "Error", JOptionPane.DEFAULT_OPTION );
+		}
 			
 	}
 	

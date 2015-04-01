@@ -190,32 +190,34 @@ public class ProducersForm extends JFrame implements ActionListener {
 	
 	private void reportProducer() throws IOException {
 		String fileName = JOptionPane.showInputDialog ("Enter file name...");
-		if(!fileName.equals("")){
-			Date d = new Date();
-	        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
-			BufferedWriter bfw = new BufferedWriter(new FileWriter(fileName+".txt"));
-			for(int i = 0 ; i < producersTableModel.getColumnCount() ; i++)
-			{
-				bfw.write(String.format("%20s",producersTableModel.getColumnName(i)));
-				bfw.write("|");
-			}
-			bfw.newLine();
-			for (int i = 0 ; i < producersTableModel.getRowCount(); i++)
-			{
-				bfw.newLine();
-			    for(int j = 0 ; j < producersTableModel.getColumnCount();j++)
+		if(fileName != null){
+			if(!fileName.equals("")){
+				Date d = new Date();
+		        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+				BufferedWriter bfw = new BufferedWriter(new FileWriter(fileName+".txt"));
+				for(int i = 0 ; i < producersTableModel.getColumnCount() ; i++)
 				{
-			    	bfw.write((String)(String.format("%20s",producersTableModel.getValueAt(i,j))));
-			    	bfw.write("|");
+					bfw.write(String.format("%20s",producersTableModel.getColumnName(i)));
+					bfw.write("|");
 				}
-			    System.out.println("\r\n");
-			}
-			bfw.newLine();
-			bfw.newLine();
-			bfw.write("Date: "+format.format(d));
-			JOptionPane.showMessageDialog(ProducersForm.this, "The report was successfully generated!", "Success", JOptionPane.DEFAULT_OPTION );
-			bfw.close();
-		}else JOptionPane.showMessageDialog(ProducersForm.this, "File name can't be blank!", "Error", JOptionPane.DEFAULT_OPTION );
+				bfw.newLine();
+				for (int i = 0 ; i < producersTableModel.getRowCount(); i++)
+				{
+					bfw.newLine();
+				    for(int j = 0 ; j < producersTableModel.getColumnCount();j++)
+					{
+				    	bfw.write((String)(String.format("%20s",producersTableModel.getValueAt(i,j))));
+				    	bfw.write("|");
+					}
+				    System.out.println("\r\n");
+				}
+				bfw.newLine();
+				bfw.newLine();
+				bfw.write("Date: "+format.format(d));
+				JOptionPane.showMessageDialog(ProducersForm.this, "The report was successfully generated!", "Success", JOptionPane.DEFAULT_OPTION );
+				bfw.close();
+			}else JOptionPane.showMessageDialog(ProducersForm.this, "File name can't be blank!", "Error", JOptionPane.DEFAULT_OPTION );
+		}
 	}
 	
 	private void createProducer() {

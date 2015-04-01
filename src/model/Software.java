@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import javax.swing.ImageIcon;
+
 import dao.SoftwareDao;
 
 public class Software implements Item {
@@ -15,6 +17,7 @@ public class Software implements Item {
 	private boolean osMac;
 	private String releaseDate;//змінити тип дати і додати гетер і сетер!!!!!
 	private Integer producerId;
+	private ImageIcon image;
 	private static SoftwareDao dao = new SoftwareDao();
 	
 	public Integer getSoftwareId() {
@@ -86,6 +89,8 @@ public class Software implements Item {
 	public int save(){
 		try {
 			this.softwareId = dao.insertSoftware(this);
+			//для швидкої роботи з таблицею!
+			this.image = new ImageIcon(((new ImageIcon(this.iconPath)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
 			return this.softwareId;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,6 +101,8 @@ public class Software implements Item {
 	public boolean update(){
 		try {
 			dao.updateSoftware(this);
+			//для швидкої роботи з таблицею!
+			this.image = new ImageIcon(((new ImageIcon(this.iconPath)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -133,7 +140,17 @@ public class Software implements Item {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		//для швидкої роботи з таблицею!
+		for (Software s : all) {
+		    s.setImage(new ImageIcon(((new ImageIcon(s.getIconPath())).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT)));
+		}
 		return all;
+	}
+	public ImageIcon getImage() {
+		return image;
+	}
+	public void setImage(ImageIcon image) {
+		this.image = image;
 	}
 
 }

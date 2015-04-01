@@ -1,8 +1,6 @@
 package view;
 
 import java.util.List;
-
-import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 import model.Software;
@@ -47,7 +45,7 @@ public class SoftwareTableModel extends AbstractTableModel {
 		case 1:
 			return s.getName();
 		case 2:
-			return new ImageIcon(((new ImageIcon(s.getIconPath())).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH));
+			return s.getImage();
 		case 3:
 			return s.getVersion();
 		case 4:
