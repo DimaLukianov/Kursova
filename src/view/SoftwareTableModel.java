@@ -21,12 +21,12 @@ public class SoftwareTableModel extends AbstractTableModel {
 		this.software = software;
 	}
 
-	public void addProducer(Software soft) {
+	public void addSoftware(Software soft) {
 		software.add(soft);
 		fireTableRowsInserted(0, software.size());
 	}
 
-	public Software getRowGroup(int rowIndex) {
+	public Software getRowSoftware(int rowIndex) {
 		return software.get(rowIndex);
 	}
 

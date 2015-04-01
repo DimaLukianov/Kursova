@@ -6,7 +6,7 @@ import dao.SoftwareDao;
 
 public class Software implements Item {
 	
-	private int softwareId;
+	private Integer softwareId;
 	private String name;
 	private String iconPath;
 	private String version;
@@ -14,13 +14,13 @@ public class Software implements Item {
 	private boolean osUnix;
 	private boolean osMac;
 	private String releaseDate;//змінити тип дати і додати гетер і сетер!!!!!
-	private int producerId;
+	private Integer producerId;
 	private static SoftwareDao dao = new SoftwareDao();
 	
-	public int getSoftwareId() {
+	public Integer getSoftwareId() {
 		return softwareId;
 	}
-	public void setSoftwareId(int softwareId) {
+	public void setSoftwareId(Integer softwareId) {
 		this.softwareId = softwareId;
 	}
 	public String getName() {
@@ -65,13 +65,13 @@ public class Software implements Item {
 	public void setReleaseDate(String releaseDate) {
 		this.releaseDate = releaseDate;
 	}
-	public int getProducerId() {
+	public Integer getProducerId() {
 		return producerId;
 	}
-	public void setProducerId(int producerId) {
+	public void setProducerId(Integer producerId) {
 		this.producerId = producerId;
 	}
-	public int create(String name, String iconPath, String version, boolean osWindows, boolean osUnix, boolean osMac, String releaseDate, int producerId){
+	public int create(String name, String iconPath, String version, boolean osWindows, boolean osUnix, boolean osMac, String releaseDate, Integer producerId){
 		this.name = name;
 		this.iconPath = iconPath;
 		this.version = version;

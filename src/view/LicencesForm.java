@@ -183,7 +183,7 @@ public class LicencesForm extends JFrame implements ActionListener {
 	
 	private void reportProducer() throws IOException {
 		String fileName = JOptionPane.showInputDialog ("Enter file name...");
-		if(fileName!=null){
+		if(!fileName.equals("")){
 			Date d = new Date();
 	        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
 			BufferedWriter bfw = new BufferedWriter(new FileWriter(fileName+".txt"));
@@ -208,7 +208,7 @@ public class LicencesForm extends JFrame implements ActionListener {
 			bfw.write("Date: "+format.format(d));
 			JOptionPane.showMessageDialog(LicencesForm.this, "The report was successfully generated!", "Success", JOptionPane.DEFAULT_OPTION );
 			bfw.close();
-		}
+		}else JOptionPane.showMessageDialog(LicencesForm.this, "File name can't be blank!", "Error", JOptionPane.DEFAULT_OPTION );
 	}
 	
 	private void createProducer() {
@@ -242,8 +242,8 @@ public class LicencesForm extends JFrame implements ActionListener {
 			return;
 		}
 		if (JOptionPane.showConfirmDialog(LicencesForm.this,
-				"Are you sure you want to delete producer?",
-				"Removing producers", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				"Are you sure you want to delete licence?",
+				"Removing licence", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			try {
 				Licence l = licencesTableModel.getRowLicence(index);
 				if (l != null) {

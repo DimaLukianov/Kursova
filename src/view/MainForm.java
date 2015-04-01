@@ -8,7 +8,13 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PrinterException;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -24,6 +30,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
+
 import model.Producer;
 import model.Software;
 
@@ -66,7 +73,9 @@ public class MainForm extends JFrame implements ActionListener {
 	
 	private JButton bPrint = new JButton("Print");
 	
-	private NewProducerForm newProducerForm = new NewProducerForm();
+	private JButton bReport = new JButton("Repotr");
+	
+	private NewSoftwareForm newSoftwareForm = new NewSoftwareForm();
 	
 	private ProducersForm producersForm = new ProducersForm();
 	
@@ -192,6 +201,7 @@ public class MainForm extends JFrame implements ActionListener {
 				
 				nav.add(bDeleteSoft);
 				nav.add(bUpdateSoft);
+				nav.add(bReport);
 				nav.add(bPrint);
 				nav.add(bCreateSoft);
 				
@@ -227,23 +237,34 @@ public class MainForm extends JFrame implements ActionListener {
 				});
 				bCreateSoft.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						createProducer();
-						JOptionPane.showMessageDialog( null, "Create new software", "New", JOptionPane.DEFAULT_OPTION );
+						createSoftware();
+//						JOptionPane.showMessageDialog( null, "Create new software", "New", JOptionPane.DEFAULT_OPTION );
 					}
 				});
 				bUpdateSoft.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog( null, "Update software", "Update", JOptionPane.DEFAULT_OPTION );
+						updateSoftware();
+//						JOptionPane.showMessageDialog( null, "Update software", "Update", JOptionPane.DEFAULT_OPTION );
 					}
 				});
 				bDeleteSoft.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						JOptionPane.showMessageDialog( null, "Delete software", "Delete", JOptionPane.DEFAULT_OPTION );
+						removeSoftware();
+//						JOptionPane.showMessageDialog( null, "Delete software", "Delete", JOptionPane.DEFAULT_OPTION );
 					}
 				});
 				bPrint.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						printSoftware();
+					}
+				});
+				bReport.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						try {
+							reportSoftware();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
 					}
 				});
 	}
@@ -271,11 +292,83 @@ public class MainForm extends JFrame implements ActionListener {
 		}
 	}
 	
-	private void createProducer() {
-		newProducerForm.setProducer(new Producer());
-		newProducerForm.setVisible(true);
-		if (newProducerForm.getProducer().getProducerId() != null) {
-			//groupsTableModel.addGroup(newGroup.getGroup());
+	private void reportSoftware() throws IOException {
+		String fileName = JOptionPane.showInputDialog ("Enter file name...");
+		if(!fileName.equals("")){
+			Date d = new Date();
+	        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+			BufferedWriter bfw = new BufferedWriter(new FileWriter(fileName+".txt"));
+			for(int i = 0 ; i < softwareTable.getColumnCount() ; i++)
+			{
+				bfw.write(String.format("%30s",softwareTable.getColumnName(i)));
+				bfw.write("|");
+			}
+			bfw.newLine();
+			for (int i = 0 ; i < softwareTable.getRowCount(); i++)
+			{
+				bfw.newLine();
+			    for(int j = 0 ; j < softwareTable.getColumnCount();j++)
+				{
+			    	bfw.write((String)(String.format("%30s",softwareTable.getValueAt(i,j))));
+			    	bfw.write("|");
+				}
+			    System.out.println("\r\n");
+			}
+			bfw.newLine();
+			bfw.newLine();
+			bfw.write("Date: "+format.format(d));
+			JOptionPane.showMessageDialog(MainForm.this, "The report was successfully generated!", "Success", JOptionPane.DEFAULT_OPTION );
+			bfw.close();
+		}else JOptionPane.showMessageDialog(MainForm.this, "File name can't be blank!", "Error", JOptionPane.DEFAULT_OPTION );
+			
+	}
+	
+	private void createSoftware() {
+		newSoftwareForm.setSoftware(new Software());
+		newSoftwareForm.setVisible(true);
+		if (newSoftwareForm.getSoftware().getSoftwareId() != null) {
+			softwareTableModel.addSoftware(newSoftwareForm.getSoftware());
+			JOptionPane.showMessageDialog(MainForm.this, "Record was successfully created!", "Success", JOptionPane.DEFAULT_OPTION );
+		}
+	}
+	
+	private void updateSoftware() {
+		int index = softwareTable.getSelectedRow();
+		if (index == -1){
+			JOptionPane.showMessageDialog(MainForm.this, "Do not select any field, please select field!", "Error", JOptionPane.DEFAULT_OPTION );
+			return;
+		}
+		Software software = softwareTableModel.getRowSoftware(index);
+		if (software != null) {
+			newSoftwareForm.setSoftware(software);
+			newSoftwareForm.setVisible(true);
+			softwareTableModel.refreshUpdatedTable();
+			JOptionPane.showMessageDialog(MainForm.this, "Record was successfully updated!", "Success", JOptionPane.DEFAULT_OPTION );
+		}
+	}
+	
+	private void removeSoftware() {
+		int index = softwareTable.getSelectedRow();
+		if (index == -1){
+			JOptionPane.showMessageDialog(MainForm.this, "Do not select any field, please select field!", "Error", JOptionPane.DEFAULT_OPTION );
+			return;
+		}
+		if (JOptionPane.showConfirmDialog(MainForm.this,
+				"Are you sure you want to delete this software?",
+				"Removing sowtware", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+			try {
+				Software s = softwareTableModel.getRowSoftware(index);
+				if (s != null) {
+					if(s.delete()){
+						softwareTableModel.removeRow(index);
+						JOptionPane.showMessageDialog(MainForm.this, "Record was successfully deleted!", "Success", JOptionPane.DEFAULT_OPTION );
+					}
+					else 
+						JOptionPane.showMessageDialog(MainForm.this, "You can not remove record!", "Error", JOptionPane.DEFAULT_OPTION );
+				}
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(MainForm.this, e.getMessage());
+			}
 		}
 	}
 	
