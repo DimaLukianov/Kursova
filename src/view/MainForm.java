@@ -284,7 +284,7 @@ public class MainForm extends JFrame implements ActionListener {
 			newSoftwareForm.setSoftware(software);
 			newSoftwareForm.setVisible(true);
 			softwareTableModel.refreshUpdatedTable();
-			JOptionPane.showMessageDialog(MainForm.this, "Record was successfully updated!", "Success", JOptionPane.DEFAULT_OPTION );
+//			JOptionPane.showMessageDialog(MainForm.this, "Record was successfully updated!", "Success", JOptionPane.DEFAULT_OPTION );
 		}
 	}
 	

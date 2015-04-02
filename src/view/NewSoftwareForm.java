@@ -6,17 +6,24 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileFilter;
+import java.text.ParseException;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.MaskFormatter;
 
 import model.Producer;
 import model.Software;
@@ -25,17 +32,22 @@ import model.Software;
 
 public class NewSoftwareForm extends JDialog {
 	
+	private static final String VERSION_PATTERN = "([0-9.]+)";
+	
+	private static final String NAME_PATTERN = "([(A-Za-z|À-ß²à-ÿ³)-/_\\s]+)";
+
 	private static final long serialVersionUID = -7265530307974489903L;
+	
 
 	private Software software;
 	private Vector<String> producerList = loadProducersList();
-	private JTextField nameText;
+	private JFormattedTextField nameText;
 	private JTextField iconPathText;
-	private JTextField versionText;
+	private JFormattedTextField versionText;
 	private JCheckBox osWindows;
 	private JCheckBox osUnix;
 	private JCheckBox osMac;
-	private JTextField releaseDate;
+	private JFormattedTextField releaseDate;
 	private JComboBox producerId;
 	private JLabel JLabel_1 = new JLabel();
 	private JLabel JLabel_2 = new JLabel();
@@ -46,26 +58,37 @@ public class NewSoftwareForm extends JDialog {
 	private JLabel JLabel_7 = new JLabel();
 	private JLabel JLabel_8 = new JLabel();
 
+
 	public NewSoftwareForm() {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		JDialog.setDefaultLookAndFeelDecorated(true);
 		setTitle("New producer");
-		setSize(400, 350);
+		setSize(400, 400);
 		setModal(true);
 		setResizable(false);
 
 		final JButton cmdSave = new JButton("Save");
 		final JButton cmdCancel = new JButton("Cancel");
+		final JButton bOpen = new JButton("Open icon...");
 
-		nameText = new JTextField(15);
-		iconPathText = new JTextField(15);
-		versionText = new JTextField(15);
+		nameText = new JFormattedTextField(new RegexFormatter(NAME_PATTERN));
+		versionText = new JFormattedTextField(new RegexFormatter(VERSION_PATTERN));
 		osWindows = new JCheckBox();
 		osUnix = new JCheckBox();
 		osMac = new JCheckBox();
-		releaseDate = new JTextField(15);
+		iconPathText = new JTextField(15);
+		iconPathText.setEditable(false);
+		MaskFormatter mf1;
+		try {
+			mf1 = new MaskFormatter("####-##-##");
+			mf1.setPlaceholderCharacter('_');
+			releaseDate = new JFormattedTextField(mf1);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+
 		producerId = new JComboBox(producerList);
-		final JPanel fieldsPanel = new JPanel(new GridLayout(8, 2, 10, 10));
+		final JPanel fieldsPanel = new JPanel(new GridLayout(9, 2, 10, 10));
 		final JPanel fieldsPanelBorder = new JPanel(new FlowLayout(
 				FlowLayout.CENTER, 10, 10));
 		fieldsPanel.setOpaque(false);
@@ -89,8 +112,6 @@ public class NewSoftwareForm extends JDialog {
 		JLabel_1.setForeground(Color.ORANGE);
 		fieldsPanel.add(JLabel_1);
 		fieldsPanel.add(nameText);
-		fieldsPanel.add(JLabel_2);
-		fieldsPanel.add(iconPathText);
 		fieldsPanel.add(JLabel_3);
 		fieldsPanel.add(versionText);
 		fieldsPanel.add(JLabel_4);
@@ -103,6 +124,10 @@ public class NewSoftwareForm extends JDialog {
 		fieldsPanel.add(releaseDate);
 		fieldsPanel.add(JLabel_8);
 		fieldsPanel.add(producerId);
+		fieldsPanel.add(JLabel_2);
+		fieldsPanel.add(iconPathText);
+		fieldsPanel.add(new JLabel());
+		fieldsPanel.add(bOpen);
 		
 
 		final JPanel commandsPanel = new JPanel(new FlowLayout());
@@ -126,6 +151,19 @@ public class NewSoftwareForm extends JDialog {
 		cmdCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cancelSave();
+			}
+		});
+		bOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("Image files(jpg | jpeg | png)", "jpg", "jpeg", "png");
+				JFileChooser fileopen = new JFileChooser();
+				if(!iconPathText.equals(""))fileopen.setCurrentDirectory(new File(iconPathText.getText()));
+				fileopen.addChoosableFileFilter(filter);
+                int ret = fileopen.showDialog(null, "Open file");                
+                if (ret == JFileChooser.APPROVE_OPTION) {
+                    File file = fileopen.getSelectedFile();
+                    iconPathText.setText(file.getPath());
+                }
 			}
 		});
 	}

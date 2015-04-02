@@ -233,7 +233,7 @@ public class LicencesForm extends JFrame implements ActionListener {
 			newLicenceForm.setLicence(licence);
 			newLicenceForm.setVisible(true);
 			licencesTableModel.refreshUpdatedTable();
-			JOptionPane.showMessageDialog(LicencesForm.this, "Record was successfully updated!", "Success", JOptionPane.DEFAULT_OPTION );
+//			JOptionPane.showMessageDialog(LicencesForm.this, "Record was successfully updated!", "Success", JOptionPane.DEFAULT_OPTION );
 		}
 	}
 	

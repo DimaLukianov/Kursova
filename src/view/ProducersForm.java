@@ -96,12 +96,12 @@ public class ProducersForm extends JFrame implements ActionListener {
 		producersTable.setPreferredScrollableViewportSize(new Dimension(880, 180));
 		producersTable.getColumnModel().getColumn(0).setMinWidth(25);
 		producersTable.getColumnModel().getColumn(1).setMinWidth(100);
-		producersTable.getColumnModel().getColumn(2).setMinWidth(150);
+		producersTable.getColumnModel().getColumn(2).setMinWidth(100);
 		producersTable.getColumnModel().getColumn(3).setMinWidth(100);
 		producersTable.getColumnModel().getColumn(4).setMinWidth(150);
 		producersTable.getColumnModel().getColumn(5).setMinWidth(150);
-		producersTable.getColumnModel().getColumn(6).setMinWidth(120);
-		producersTable.getColumnModel().getColumn(7).setMinWidth(100);
+		producersTable.getColumnModel().getColumn(6).setMinWidth(150);
+		producersTable.getColumnModel().getColumn(7).setMinWidth(140);
 		producersTable.setGridColor(Color.ORANGE);
 		producersTable.setRowHeight(20);
 		Font FontGrid = new Font(Font.MONOSPACED, Font.PLAIN, 14);
@@ -240,7 +240,7 @@ public class ProducersForm extends JFrame implements ActionListener {
 			newProducerForm.setProducer(producer);
 			newProducerForm.setVisible(true);
 			producersTableModel.refreshUpdatedTable();
-			JOptionPane.showMessageDialog(ProducersForm.this, "Record was successfully updated!", "Success", JOptionPane.DEFAULT_OPTION );
+//			JOptionPane.showMessageDialog(ProducersForm.this, "Record was successfully updated!", "Success", JOptionPane.DEFAULT_OPTION );
 		}
 	}
 	
