@@ -11,7 +11,12 @@ import javax.swing.text.DefaultFormatter;
  * A regular expression based implementation of AbstractFormatter.
  */
 class RegexFormatter extends DefaultFormatter {
-  private Pattern pattern;
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+private Pattern pattern;
 
   private Matcher matcher;
 

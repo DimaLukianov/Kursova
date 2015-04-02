@@ -16,7 +16,7 @@ public class SoftwareDao {
 	private static final String UPDATE_QUERY = "update software "
 			+ "set software_name = ?, software_icon = ?, version = ?, os_windows = ?, os_unix = ?, os_mac = ?, release_date = ?, producer_id = ? "
 			+ "where software_id = ?";
-	private static final String DELETE_QUERY = "delete from producer where software_id = ?";
+	private static final String DELETE_QUERY = "delete from software where software_id = ?";
 	private static final String SELECT_QUERY = "select software_id, software_name, software_icon, version, os_windows, os_unix, os_mac, release_date, producer_id "
 			+ "from software where software_id = ?";
 	private static final String SELECT_ALL_QUERY = "select software_id, software_name, software_icon, version, os_windows, os_unix, os_mac, release_date, producer_id from software ";

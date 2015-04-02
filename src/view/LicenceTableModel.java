@@ -11,7 +11,7 @@ public class LicenceTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = -2677658636846257452L;
 
 	private String[] columns = new String[] { "ID", "Name",
-			"Type", "Period", "Price" };
+			"Type", "Period(day)", "Price($)" };
 
 	private List<Licence> licence;
 

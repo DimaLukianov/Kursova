@@ -57,7 +57,7 @@ public class NewProducerForm extends JDialog {
 		JFrame.setDefaultLookAndFeelDecorated(true);
 		JDialog.setDefaultLookAndFeelDecorated(true);
 		setTitle("New producer");
-		setSize(400, 300);
+		setSize(350, 300);
 		setModal(true);
 		setResizable(false);
 

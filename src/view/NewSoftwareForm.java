@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileFilter;
 import java.text.ParseException;
 import java.util.Vector;
 
@@ -186,28 +185,36 @@ public class NewSoftwareForm extends JDialog {
 	}
 
 	private void saveSoftware() {
-		try {
-			software.setName(nameText.getText());
-			software.setIconPath(iconPathText.getText());
-			software.setVersion(versionText.getText());
-			software.setOsWindows(osWindows.isSelected());
-			software.setOsUnix(osUnix.isSelected());
-			software.setOsMac(osMac.isSelected());
-			software.setReleaseDate(releaseDate.getText());
-			//вит€гуЇмо id з назви
-			String[] arr = ((String) producerId.getSelectedItem()).split("\\|");
-			software.setProducerId(Integer.parseInt(arr[0]));
-			
-			if (software.getSoftwareId() == null) {
-				software.save();
-			} else {
-				software.update();
+		if(nameText.getText().equals(""))
+			JOptionPane.showMessageDialog(NewSoftwareForm.this, "The name is entered incorrectly!", "Error", JOptionPane.DEFAULT_OPTION );
+		else if(versionText.getText().equals(""))
+			JOptionPane.showMessageDialog(NewSoftwareForm.this, "The version is entered incorrectly!", "Error", JOptionPane.DEFAULT_OPTION );
+		else if(releaseDate.getText().equals(""))
+			JOptionPane.showMessageDialog(NewSoftwareForm.this, "The release date is entered incorrectly!", "Error", JOptionPane.DEFAULT_OPTION );
+		else{
+			try {
+				software.setName(nameText.getText());
+				software.setIconPath(iconPathText.getText());
+				software.setVersion(versionText.getText());
+				software.setOsWindows(osWindows.isSelected());
+				software.setOsUnix(osUnix.isSelected());
+				software.setOsMac(osMac.isSelected());
+				software.setReleaseDate(releaseDate.getText());
+				//вит€гуЇмо id з назви
+				String[] arr = ((String) producerId.getSelectedItem()).split("\\|");
+				software.setProducerId(Integer.parseInt(arr[0]));
+				
+				if (software.getSoftwareId() == null) {
+					software.save();
+				} else {
+					software.update();
+				}
+				this.setVisible(false);
+			} catch (Exception e) {
+				e.printStackTrace();
+				JOptionPane.showMessageDialog(this,
+						"Error saving producer: " + e.getMessage());
 			}
-			this.setVisible(false);
-		} catch (Exception e) {
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(this,
-					"Error saving producer: " + e.getMessage());
 		}
 	}
 
