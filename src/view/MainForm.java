@@ -63,7 +63,9 @@ public class MainForm extends JFrame implements ActionListener {
 	
 	private JButton bShowAllProd = new JButton("Show All");
 	
-	private JButton bShowAllLicence = new JButton("Licence");
+	private JButton bShowAllLicence = new JButton("All licence");
+	
+	private JButton bAddLicence = new JButton("Add licence");
 	
 	private JButton bCreateSoft = new JButton("Create");
 	
@@ -153,9 +155,11 @@ public class MainForm extends JFrame implements ActionListener {
 				
 		JPanel bottom = new JPanel();
 		JPanel nav = new JPanel();
+		JPanel navLicence = new JPanel();
 			
 		bottom.setLayout(new BorderLayout());
 		nav.setLayout(new FlowLayout());
+		navLicence.setLayout(new FlowLayout());
 				
 		nav.add(bDeleteSoft);
 		nav.add(bUpdateSoft);
@@ -163,8 +167,11 @@ public class MainForm extends JFrame implements ActionListener {
 		nav.add(bPrint);
 		nav.add(bCreateSoft);
 		
+		navLicence.add(bShowAllLicence);
+		navLicence.add(bAddLicence);
+		
 		bottom.add(nav, BorderLayout.CENTER);
-		bottom.add(bShowAllLicence, BorderLayout.EAST);
+		bottom.add(navLicence, BorderLayout.EAST);
 				
 		right.add(scrollPane, BorderLayout.CENTER);
 		right.add(bottom, BorderLayout.SOUTH);
@@ -186,6 +193,11 @@ public class MainForm extends JFrame implements ActionListener {
 		bShowAllLicence.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				licencesForm.setVisible(true);
+			}
+		});
+		bAddLicence.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+//				licencesForm.setVisible(true);
 			}
 		});
 		bCreateSoft.addActionListener(new ActionListener() {
