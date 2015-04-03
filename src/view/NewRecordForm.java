@@ -102,15 +102,11 @@ public class NewRecordForm extends JDialog {
 
 	public void setRecord(Record record) {
 		this.record = record;
-		if(record.getRef().getSoftwareId() != null){
-			Software s = (Software) record.getSoftware().findById(record.getRef().getSoftwareId());
-			softwareId.setSelectedItem(s.getSoftwareId()+"# "+s.getName());
-		}
+		if(record.getRef().getSoftwareId() != null)
+			softwareId.setSelectedItem(findSoftwareById(record.getRef().getSoftwareId()));
 			
-		if(record.getRef().getLicenceId() != null){
-			Licence l = (Licence) record.getLicence().findById(record.getRef().getLicenceId());
-			licenceId.setSelectedItem(l.getLicenceId()+"# "+l.getName());
-		}
+		if(record.getRef().getLicenceId() != null)
+			licenceId.setSelectedItem(findLicenceById(record.getRef().getLicenceId()));
 	}
 
 	private void saveRecord() {
@@ -155,6 +151,23 @@ public class NewRecordForm extends JDialog {
 		}
 		
 		return licenceList;
+	}
+	
+	private String findSoftwareById(int id){
+		String software = null;
+		for (String s : softwareList) {
+			String[] arr = s.split("#");
+			if(Integer.parseInt(arr[0])==id)software = s;
+		}
+		return software;
+	}
+	private String findLicenceById(int id){
+		String licence = null;
+		for (String l : licenceList) {
+			String[] arr = l.split("#");
+			if(Integer.parseInt(arr[0])==id)licence = l;
+		}
+		return licence;
 	}
 
 }

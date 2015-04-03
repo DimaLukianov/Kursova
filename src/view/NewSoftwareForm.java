@@ -201,7 +201,7 @@ public class NewSoftwareForm extends JDialog {
 				software.setOsMac(osMac.isSelected());
 				software.setReleaseDate(releaseDate.getText());
 				//вит€гуЇмо id з назви
-				String[] arr = ((String) producerId.getSelectedItem()).split("\\|");
+				String[] arr = ((String) producerId.getSelectedItem()).split("#");
 				software.setProducerId(Integer.parseInt(arr[0]));
 				
 				if (software.getSoftwareId() == null) {
@@ -225,7 +225,7 @@ public class NewSoftwareForm extends JDialog {
 	private Vector<String> loadProducersList(){
 		Vector<String> producersList = new Vector<String>();
 		for (Producer p : Producer.all()) {
-			producersList.add(p.getProducerId()+"| "+p.getName());
+			producersList.add(p.getProducerId()+"# "+p.getName());
 		}
 		
 		return producersList;
@@ -234,7 +234,7 @@ public class NewSoftwareForm extends JDialog {
 	private String findProducerById(int id){
 		String producer = null;
 		for (String p : producerList) {
-			String[] arr = p.split("\\|");
+			String[] arr = p.split("#");
 			if(Integer.parseInt(arr[0])==id)producer = p;
 		}
 		return producer;

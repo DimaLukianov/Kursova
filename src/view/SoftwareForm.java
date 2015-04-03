@@ -49,7 +49,7 @@ public class SoftwareForm extends JFrame implements ActionListener {
 	
 	DefaultListModel listModel2 = new DefaultListModel();
 	
-	private JList prodList ;
+	private JList prodList;
 	
 	//private JList softList;
 	
@@ -196,6 +196,7 @@ public class SoftwareForm extends JFrame implements ActionListener {
 		});
 		bAddLicence.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				loadProducersList();
 //				licencesForm.setVisible(true);
 			}
 		});
