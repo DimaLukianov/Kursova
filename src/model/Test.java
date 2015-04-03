@@ -36,6 +36,12 @@ public class Test {
 //		prod.create("Eleks", "Ua", "IF", "Troleibusna", "info@eleks.ua","www.elex.com", "67 33 55");
 //		List<Producer> p = ;
 		long startTime = System.currentTimeMillis();
+		
+		List<Record> lr = Record.all();
+		for (Record r : lr) {
+			System.out.println(r.getSoftware().getName()+"  "+r.getProducer().getName()+"  "+r.getLicence().getName());
+		}
+		
 //		
 //		for (Producer p : Producer.all()) {
 //			System.out.println(p.getName());
@@ -50,9 +56,9 @@ public class Test {
 //		p.setWebSite("job.ua");
 //		p.setTelephone("0995465345");
 //		System.out.println(p.save());
-		String text = "3334| SoftServe";
-		String[] arr = text.split("\\|");
-		System.out.println(Integer.parseInt(arr[0]));
+//		String text = "3334| SoftServe";
+//		String[] arr = text.split("\\|");
+//		System.out.println(Integer.parseInt(arr[0]));
 		
 		long timeSpent = System.currentTimeMillis()-startTime;
 		

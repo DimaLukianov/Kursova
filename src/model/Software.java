@@ -15,7 +15,7 @@ public class Software implements Item {
 	private boolean osWindows;
 	private boolean osUnix;
 	private boolean osMac;
-	private String releaseDate;//змінити тип дати і додати гетер і сетер!!!!!
+	private String releaseDate;
 	private Integer producerId;
 	private ImageIcon image;
 	private static SoftwareDao dao = new SoftwareDao();
@@ -73,6 +73,12 @@ public class Software implements Item {
 	}
 	public void setProducerId(Integer producerId) {
 		this.producerId = producerId;
+	}
+	public ImageIcon getImage() {
+		return image;
+	}
+	public void setImage(ImageIcon image) {
+		this.image = image;
 	}
 	public int create(String name, String iconPath, String version, boolean osWindows, boolean osUnix, boolean osMac, String releaseDate, Integer producerId){
 		this.name = name;
@@ -145,12 +151,6 @@ public class Software implements Item {
 		    s.setImage(new ImageIcon(((new ImageIcon(s.getIconPath())).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT)));
 		}
 		return all;
-	}
-	public ImageIcon getImage() {
-		return image;
-	}
-	public void setImage(ImageIcon image) {
-		this.image = image;
 	}
 
 }
