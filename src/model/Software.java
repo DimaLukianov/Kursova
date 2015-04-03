@@ -36,6 +36,7 @@ public class Software implements Item {
 		return iconPath;
 	}
 	public void setIconPath(String iconPath) {
+		this.image = new ImageIcon(((new ImageIcon(iconPath)).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT));
 		this.iconPath = iconPath;
 	}
 	public String getVersion() {
@@ -146,10 +147,10 @@ public class Software implements Item {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//для швидкої роботи з таблицею!
-		for (Software s : all) {
-		    s.setImage(new ImageIcon(((new ImageIcon(s.getIconPath())).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT)));
-		}
+//		//для швидкої роботи з таблицею!
+//		for (Software s : all) {
+//		    s.setImage(new ImageIcon(((new ImageIcon(s.getIconPath())).getImage()).getScaledInstance(30, 30, java.awt.Image.SCALE_DEFAULT)));
+//		}
 		return all;
 	}
 

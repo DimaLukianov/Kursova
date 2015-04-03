@@ -34,7 +34,7 @@ import javax.swing.border.BevelBorder;
 import model.Producer;
 import model.Software;
 
-public class MainForm extends JFrame implements ActionListener {
+public class SoftwareForm extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -91,7 +91,7 @@ public class MainForm extends JFrame implements ActionListener {
 	}
 	
 	
-	public MainForm(){
+	public SoftwareForm(){
 		getContentPane().setLayout(new BorderLayout());
 		JMenuBar menuBar = new JMenuBar();
 		JMenu menu = new JMenu("File");
@@ -145,7 +145,6 @@ public class MainForm extends JFrame implements ActionListener {
 		softwareTable.getColumnModel().getColumn(6).setMinWidth(50);
 		softwareTable.getColumnModel().getColumn(7).setMinWidth(100);
 		softwareTable.setGridColor(Color.ORANGE);
-		softwareTable.setRowHeight(20);
 		softwareTable.setRowHeight(40);
 		Font FontGrid = new Font(Font.SANS_SERIF, Font.PLAIN, 14);
 		softwareTable.setFont(FontGrid);
@@ -269,9 +268,9 @@ public class MainForm extends JFrame implements ActionListener {
 				bfw.newLine();
 				bfw.newLine();
 				bfw.write("Date: "+format.format(d));
-				JOptionPane.showMessageDialog(MainForm.this, "The report was successfully generated!", "Success", JOptionPane.DEFAULT_OPTION );
+				JOptionPane.showMessageDialog(SoftwareForm.this, "The report was successfully generated!", "Success", JOptionPane.DEFAULT_OPTION );
 				bfw.close();
-			}else JOptionPane.showMessageDialog(MainForm.this, "File name can't be blank!", "Error", JOptionPane.DEFAULT_OPTION );
+			}else JOptionPane.showMessageDialog(SoftwareForm.this, "File name can't be blank!", "Error", JOptionPane.DEFAULT_OPTION );
 		}
 			
 	}
@@ -281,14 +280,14 @@ public class MainForm extends JFrame implements ActionListener {
 		newSoftwareForm.setVisible(true);
 		if (newSoftwareForm.getSoftware().getSoftwareId() != null) {
 			softwareTableModel.addSoftware(newSoftwareForm.getSoftware());
-			JOptionPane.showMessageDialog(MainForm.this, "Record was successfully created!", "Success", JOptionPane.DEFAULT_OPTION );
+			JOptionPane.showMessageDialog(SoftwareForm.this, "Record was successfully created!", "Success", JOptionPane.DEFAULT_OPTION );
 		}
 	}
 	
 	private void updateSoftware() {
 		int index = softwareTable.getSelectedRow();
 		if (index == -1){
-			JOptionPane.showMessageDialog(MainForm.this, "Do not select any field, please select field!", "Error", JOptionPane.DEFAULT_OPTION );
+			JOptionPane.showMessageDialog(SoftwareForm.this, "Do not select any field, please select field!", "Error", JOptionPane.DEFAULT_OPTION );
 			return;
 		}
 		Software software = softwareTableModel.getRowSoftware(index);
@@ -303,10 +302,10 @@ public class MainForm extends JFrame implements ActionListener {
 	private void removeSoftware() {
 		int index = softwareTable.getSelectedRow();
 		if (index == -1){
-			JOptionPane.showMessageDialog(MainForm.this, "Do not select any field, please select field!", "Error", JOptionPane.DEFAULT_OPTION );
+			JOptionPane.showMessageDialog(SoftwareForm.this, "Do not select any field, please select field!", "Error", JOptionPane.DEFAULT_OPTION );
 			return;
 		}
-		if (JOptionPane.showConfirmDialog(MainForm.this,
+		if (JOptionPane.showConfirmDialog(SoftwareForm.this,
 				"Are you sure you want to delete this software?",
 				"Removing sowtware", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			try {
@@ -314,13 +313,13 @@ public class MainForm extends JFrame implements ActionListener {
 				if (s != null) {
 					if(s.delete()){
 						softwareTableModel.removeRow(index);
-						JOptionPane.showMessageDialog(MainForm.this, "Record was successfully deleted!", "Success", JOptionPane.DEFAULT_OPTION );
+						JOptionPane.showMessageDialog(SoftwareForm.this, "Record was successfully deleted!", "Success", JOptionPane.DEFAULT_OPTION );
 					}
 					else 
-						JOptionPane.showMessageDialog(MainForm.this, "You can not remove record!", "Error", JOptionPane.DEFAULT_OPTION );
+						JOptionPane.showMessageDialog(SoftwareForm.this, "You can not remove record!", "Error", JOptionPane.DEFAULT_OPTION );
 				}
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(MainForm.this, e.getMessage());
+				JOptionPane.showMessageDialog(SoftwareForm.this, e.getMessage());
 			}
 		}
 	}
@@ -347,7 +346,7 @@ public class MainForm extends JFrame implements ActionListener {
 	
 	public static void main(String[] args) {
 		
-		MainForm mForm = new MainForm(); 
+		SoftwareForm mForm = new SoftwareForm(); 
 
 		mForm.setVisible(true);
 		JFrame.setDefaultLookAndFeelDecorated(true);

@@ -4,31 +4,31 @@ import dao.RefDao;
 
 public class Ref implements Item {
 	
-	private int refId;
-	private int softwareId;
-	private int licenceId;
+	private Integer refId;
+	private Integer softwareId;
+	private Integer licenceId;
 	private RefDao dao = new RefDao();
 	
-	public int getRefId() {
+	public Integer getRefId() {
 		return refId;
 	}
-	public void setRefId(int refId) {
+	public void setRefId(Integer refId) {
 		this.refId = refId;
 	}
-	public int getSoftwareId() {
+	public Integer getSoftwareId() {
 		return softwareId;
 	}
-	public void setSoftwareId(int softwareId) {
+	public void setSoftwareId(Integer softwareId) {
 		this.softwareId = softwareId;
 	}
-	public int getLicenceId() {
+	public Integer getLicenceId() {
 		return licenceId;
 	}
-	public void setLicenceId(int licenceId) {
+	public void setLicenceId(Integer licenceId) {
 		this.licenceId = licenceId;
 	}
 	
-	public int create(int softwareId, int licenceId){
+	public int create(Integer softwareId, Integer licenceId){
 		
 		this.softwareId = softwareId;
 		this.licenceId = licenceId;
