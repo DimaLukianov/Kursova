@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import model.Record;
+import model.Software;
 
 public class AllInfoDao {
 	
@@ -18,13 +19,11 @@ public class AllInfoDao {
 	
 	private static final RefDao refDao = new RefDao();
 		
-	private static final String SELECT_ALL_QUERY = "SELECT `software`.`software_id`, `software`.`producer_id`, `licence`.`licence_id`, `ref`.`ref_id` "
-			+"FROM soft.software, soft.licence, soft.ref "
-			+"WHERE `software`.`software_id` = `ref`.`software_id` AND `licence`.`licence_id` = `ref`.`licence_id`";
-	private static final String SELECT_QUERY = "SELECT `software`.`software_id`, `software`.`producer_id`, `licence`.`licence_id` "
-			+"FROM soft.software, soft.licence, soft.ref  "
-			+"WHERE `software`.`software_id` = `ref`.`software_id` AND `licence`.`licence_id` = `ref`.`licence_id` AND "
-			+"`software.id` = ?;";
+	private static final String SELECT_ALL_QUERY = "SELECT `ref`.`ref_id`, `ref`.`software_id`, `ref`.`licence_id` "
+			+"FROM soft.ref ";
+	private static final String SELECT_QUERY = "SELECT `ref`.`ref_id`, `ref`.`software_id`, `ref`.`licence_id` "
+			+"FROM soft.ref "
+			+"WHERE `ref`.`ref_id` = ?;";
 
 		
 
@@ -63,11 +62,11 @@ public class AllInfoDao {
 
 		private static Record getAllFromRow(ResultSet rs) throws Exception {
 			Record r = new Record();
-			
-			r.setSoftware(softwareDao.findById(rs.getInt(1)));
-			r.setProducer(producerDao.findById(rs.getInt(2)));
+			r.setRef(refDao.findById(rs.getInt(1)));
+			Software s = softwareDao.findById(rs.getInt(2));
+			r.setSoftware(s);
 			r.setLicence(licenceDao.findById(rs.getInt(3)));
-			r.setRef(refDao.findById(rs.getInt(4)));
+			r.setProducer(producerDao.findById(s.getProducerId()));
 
 			return r;
 		}

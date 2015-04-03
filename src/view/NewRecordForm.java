@@ -126,6 +126,7 @@ public class NewRecordForm extends JDialog {
 			} else {
 				record.getRef().update();
 			}
+			record.refresh();
 			this.setVisible(false);
 		} catch (Exception e) {
 			e.printStackTrace();

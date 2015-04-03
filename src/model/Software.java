@@ -126,8 +126,7 @@ public class Software implements Item {
 			return false;
 		}	
 	}
-	@Override
-	public Item findById(int id) {
+	public static Item findById(int id) {
 		try {
 			return dao.findById(id);
 		} catch (Exception e) {

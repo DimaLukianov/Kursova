@@ -7,7 +7,7 @@ public class Ref implements Item {
 	private Integer refId;
 	private Integer softwareId;
 	private Integer licenceId;
-	private RefDao dao = new RefDao();
+	private static RefDao dao = new RefDao();
 	
 	public Integer getRefId() {
 		return refId;
@@ -64,8 +64,7 @@ public class Ref implements Item {
 			return false;
 		}	
 	}
-	@Override
-	public Item findById(int id) {
+	public static Item findById(int id) {
 		try {
 			return dao.findById(id);
 		} catch (Exception e) {

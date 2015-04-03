@@ -57,6 +57,12 @@ public class Record {
 		return this.ref.delete();
 	}
 	
+	public void refresh(){
+		this.software = (Software) Software.findById(this.ref.getSoftwareId());
+		this.licence = (Licence) Licence.findById(this.ref.getLicenceId());
+		this.producer = (Producer) Producer.findById(this.software.getProducerId());
+	}
+	
 	public static Record findById(int id) {
 		try {
 			return dao.findById(id);
