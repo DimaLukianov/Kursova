@@ -6,13 +6,13 @@ import dao.AllInfoDao;
 
 public class Record {
 	
-	private Software software;
+	private Software software = new Software();
 	
-	private Producer producer;
+	private Producer producer = new Producer();
 	
-	private Licence licence;
+	private Licence licence = new Licence();
 	
-	private Ref ref;
+	private Ref ref = new Ref();
 	
 	private static AllInfoDao dao = new AllInfoDao();
 
@@ -53,7 +53,7 @@ public class Record {
 		return this.ref.create(softwareId, licenceId);
 	}
 	
-	public boolean deleteRef(){
+	public boolean delete(){
 		return this.ref.delete();
 	}
 	

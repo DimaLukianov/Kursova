@@ -19,12 +19,12 @@ public class RecordsTableModel extends AbstractTableModel {
 		this.record = record;
 	}
 
-	public void addLicence(Record record) {
+	public void addRecord(Record record) {
 		this.record.add(record);
 		fireTableRowsInserted(0, this.record.size());
 	}
 
-	public Record getRowLicence(int rowIndex) {
+	public Record getRowRecord(int rowIndex) {
 		return record.get(rowIndex);
 	}
 

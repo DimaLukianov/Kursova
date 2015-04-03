@@ -45,6 +45,8 @@ public class RefDao {
 		try {
 			statement.setInt(1, ref.getSoftwareId());
 			statement.setInt(2, ref.getLicenceId());
+			
+			statement.setInt(3, ref.getRefId());
 
 			statement.executeUpdate();
 		} finally {

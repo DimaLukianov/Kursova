@@ -97,7 +97,7 @@ public class NewLicenceForm extends JDialog {
 		
 		cmdSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				saveProducer();
+				saveLicence();
 			}
 		});
 
@@ -120,7 +120,7 @@ public class NewLicenceForm extends JDialog {
 		priceText.setText(Double.toString(licence.getPrice()));
 	}
 
-	private void saveProducer() {
+	private void saveLicence() {
 		if(nameText.getText().equals(""))
 			JOptionPane.showMessageDialog(NewLicenceForm.this, "The field 'name' can't be blank!", "Error", JOptionPane.DEFAULT_OPTION );
 		else if(typeText.getText().equals(""))
@@ -146,7 +146,7 @@ public class NewLicenceForm extends JDialog {
 			} catch (Exception e) {
 				e.printStackTrace();
 				JOptionPane.showMessageDialog(this,
-						"Error saving producer: " + e.getMessage());
+						"Error saving license: " + e.getMessage());
 			}
 		}
 	}

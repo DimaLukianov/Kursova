@@ -29,7 +29,6 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
 
-import model.Licence;
 import model.Record;
 
 public class RecordsForm extends JFrame implements ActionListener {
@@ -57,7 +56,7 @@ public class RecordsForm extends JFrame implements ActionListener {
 	
 	private JButton bReport = new JButton("Report");
 	
-	private NewLicenceForm newLicenceForm = new NewLicenceForm();
+	private NewRecordForm newRecordForm = new NewRecordForm();
 
 
 	@Override
@@ -141,28 +140,28 @@ public class RecordsForm extends JFrame implements ActionListener {
 
 		bCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				createProducer();
+				createRecord();
 			}
 		});
 		bUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				updateProducer();
+				updateRecord();
 			}
 		});
 		bDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				removeProducer();
+				removeRecord();
 			}
 		});
 		bPrint.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				printProducer();
+				printRecord();
 			}
 		});
 		bReport.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					reportProducer();
+					reportRecord();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -171,7 +170,7 @@ public class RecordsForm extends JFrame implements ActionListener {
 		});
 	}
 	
-	private void printProducer() {
+	private void printRecord() {
 		try {
 			MessageFormat headerFormat = new MessageFormat("Page {0}");
 			MessageFormat footerFormat = new MessageFormat("- {0} -");
@@ -183,7 +182,7 @@ public class RecordsForm extends JFrame implements ActionListener {
 		}
 	}
 	
-	private void reportProducer() throws IOException {
+	private void reportRecord() throws IOException {
 		String fileName = JOptionPane.showInputDialog ("Enter file name...");
 		if(fileName != null){
 			if(!fileName.equals("")){
@@ -215,49 +214,48 @@ public class RecordsForm extends JFrame implements ActionListener {
 		}
 	}
 	
-	private void createProducer() {
-		newLicenceForm.setLicence(new Licence());
-		newLicenceForm.setVisible(true);
-		if (newLicenceForm.getLicence().getLicenceId() != null) {
-//			recordsTableModel.addLicence(newLicenceForm.getLicence());
+	private void createRecord() {
+		newRecordForm.setRecord(new Record());
+		newRecordForm.setVisible(true);
+		if (newRecordForm.getRecord().getRef().getRefId() != null) {
+			recordsTableModel.addRecord(newRecordForm.getRecord());
 			JOptionPane.showMessageDialog(RecordsForm.this, "Record was successfully created!", "Success", JOptionPane.DEFAULT_OPTION );
 		}
 	}
 	
-	private void updateProducer() {
+	private void updateRecord() {
 		int index = recordsTable.getSelectedRow();
 		if (index == -1){
 			JOptionPane.showMessageDialog(RecordsForm.this, "Do not select any field, please select field!", "Error", JOptionPane.DEFAULT_OPTION );
 			return;
 		}
-//		Licence licence = recordsTableModel.getRowLicence(index);
-//		if (licence != null) {
-//			newLicenceForm.setLicence(licence);
-//			newLicenceForm.setVisible(true);
-//			recordsTableModel.refreshUpdatedTable();
-////			JOptionPane.showMessageDialog(LicencesForm.this, "Record was successfully updated!", "Success", JOptionPane.DEFAULT_OPTION );
-//		}
+		Record record = recordsTableModel.getRowRecord(index);
+		if (record != null) {
+			newRecordForm.setRecord(record);
+			newRecordForm.setVisible(true);
+			recordsTableModel.refreshUpdatedTable();
+		}
 	}
 	
-	private void removeProducer() {
+	private void removeRecord() {
 		int index = recordsTable.getSelectedRow();
 		if (index == -1){
 			JOptionPane.showMessageDialog(RecordsForm.this, "Do not select any field, please select field!", "Error", JOptionPane.DEFAULT_OPTION );
 			return;
 		}
 		if (JOptionPane.showConfirmDialog(RecordsForm.this,
-				"Are you sure you want to delete licence?",
-				"Removing licence", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+				"Are you sure you want to delete record?",
+				"Removing record", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 			try {
-//				Licence l = recordsTableModel.getRowLicence(index);
-//				if (l != null) {
-//					if(l.delete()){
-//						recordsTableModel.removeRow(index);
-//						JOptionPane.showMessageDialog(RecordsForm.this, "Record was successfully deleted!", "Success", JOptionPane.DEFAULT_OPTION );
-//					}
-//					else 
-//						JOptionPane.showMessageDialog(RecordsForm.this, "You can not remove record!", "Error", JOptionPane.DEFAULT_OPTION );
-//				}
+				Record r = recordsTableModel.getRowRecord(index);
+				if (r != null) {
+					if(r.getRef().delete()){
+						recordsTableModel.removeRow(index);
+						JOptionPane.showMessageDialog(RecordsForm.this, "Record was successfully deleted!", "Success", JOptionPane.DEFAULT_OPTION );
+					}
+					else 
+						JOptionPane.showMessageDialog(RecordsForm.this, "You can not remove record!", "Error", JOptionPane.DEFAULT_OPTION );
+				}
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(RecordsForm.this, e.getMessage());
 			}
